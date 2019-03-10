@@ -33,7 +33,7 @@ func Selectuser(u *Userinfo,index int ,setoff int ,conds map[string]string,appen
 	if conds!=nil {
 
 		for k, v := range conds {
-			fmt.Println(k, v)
+			//fmt.Println(k, v)
 			qs =qs.Filter(k, v)
 		}
 	}
@@ -52,4 +52,13 @@ func Countuser(u *Userinfo)(cnt int ,err error){
 	o:=orm.NewOrm()
 	num,err := o.QueryTable(u).Count() // SELECT COUNT(*) FROM USER
 	return int(num) ,err
+}
+func Del(u *Userinfo)(cnt int ,err error){
+	o := orm.NewOrm()
+	var num int
+	if num, err := o.Delete(u); err == nil {
+		fmt.Println(num)
+		return int(num),err
+	}
+	return num ,err
 }

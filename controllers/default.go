@@ -3,6 +3,8 @@ package controllers
 import (
 	"fmt"
 	"github.com/astaxie/beego"
+	"webgo/library"
+
 	"webgo/models"
 	_"webgo/models"
 )
@@ -16,39 +18,33 @@ func (c *MainController) Get() {
 	//c.Data["Email"] = "astaxie@gmail.com"
 	id := c.Ctx.Input.Param(":id")
 	fmt.Println(id)
-
 	c.TplName = "test.html"
-	c.Data["data"]="wuxiaoyu"
 	c.Data["Photos"] = models.Getphoto()
 	c.Data["Title"] =models.GetTitle()
 
 }
-func (c *MainController)Post(){
-	u :=new(models.Userinfo)
-	u.Age=11
-	u.Username="wangw"
-	res ,err:=models.Insertuser(u)
-	fmt.Println(res,err)
-	c.TplName = "test.html"
-	c.Data["data"]="liuxinran"
 
-}
 func (c *MainController)Dologin(){
 	fmt.Println("ppapacao")
 	c.TplName="test.html"
 }
 func (c *MainController)Userlist(){
 	u:=new(models.Userinfo)
-	conds :=map[string]string{"username":"wangw"}
-
+	//conds :=map[string]string{"username":"wangw"}
+	conds:=map[string]string{}
 	res ,err:=models.Selectuser(u,0,0,conds,"")
 
-	fmt.Println(res ,err)
+	//fmt.Println(res ,err)
+	if err!=nil{
+		fmt.Println("err ",err)
+	}
+	var resp interface{}
+	resp=library.Respmsg(0,"",res)
 
-
-	c.Data["json"]=res
+	if res==0{
+		resp= library.Respmsg(1001,"del fail","")
+	}
+	c.Data["json"]=resp
 	c.ServeJSON()
-	//c.TplName = "test.html"
-	//c.Data["data"]="liuxinran"
 
 }

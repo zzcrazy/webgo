@@ -10,6 +10,8 @@ func init() {
 	//beego.AutoRouter(&controllers.UserController{})
 	beego.Router("/pa", &controllers.MainController{}, "Get:Dologin")
 	beego.Router("/userlist", &controllers.MainController{}, "Get:Userlist")
+	beego.Router("/del?:id", &controllers.UserController{}, "Get:Del")
+	beego.Router("/adduser", &controllers.UserController{}, "Post:Adduser")
 
 	beego.Router("/do", &controllers.MainController{})
 
