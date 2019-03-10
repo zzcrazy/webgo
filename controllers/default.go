@@ -3,8 +3,8 @@ package controllers
 import (
 	"fmt"
 	"github.com/astaxie/beego"
-	"goodsdetail/models"
-	_"goodsdetail/models"
+	"webgo/models"
+	_"webgo/models"
 )
 
 type MainController struct {
