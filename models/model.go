@@ -3,7 +3,7 @@ package models
 import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
-	_"github.com/go-sql-driver/MySQL"
+	_ "github.com/go-sql-driver/MySQL"
 	"io"
 )
 
@@ -52,6 +52,15 @@ func Countuser(u *Userinfo)(cnt int ,err error){
 	o:=orm.NewOrm()
 	num,err := o.QueryTable(u).Count() // SELECT COUNT(*) FROM USER
 	return int(num) ,err
+}
+func Updae(u *Userinfo)(n int ,e error){
+	o :=orm.NewOrm()
+	uid :=o.Read(u)
+	num,err :=o.Update(uid)
+	if err!=nil{
+		return
+	}
+	return int(num), nil
 }
 func Del(u *Userinfo)(cnt int ,err error){
 	o := orm.NewOrm()
